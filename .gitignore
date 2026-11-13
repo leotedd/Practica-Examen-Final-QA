@@ -1,0 +1,36 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Secretos y credenciales
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+auth.json
+storageState*.json
+
+# Resultados temporales y logs
+*.log
+npm-debug.log*
+*.tsbuildinfo
+/coverage/
+
+# Sistema operativo / editores
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Evidencias: se versionan solo las seleccionadas.
+# Videos y trazas pesadas se excluyen; capturas (.png) y documentos sí se permiten.
+/evidencias/**/*.webm
+/evidencias/**/*.zip

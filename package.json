@@ -1,0 +1,25 @@
+{
+  "name": "practica_examen_final_qa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:edge": "playwright test --project=edge --workers=1 --reporter=list,html",
+    "test:headed": "playwright test --project=edge --workers=1 --headed",
+    "test:debug": "playwright test --project=edge --workers=1 --debug",
+    "test:ui": "playwright test --ui",
+    "test:list": "playwright test --list --project=edge",
+    "typecheck": "tsc --noEmit",
+    "report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "typescript": "^7.0.2"
+  }
+}
