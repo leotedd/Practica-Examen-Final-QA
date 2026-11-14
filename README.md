@@ -14,23 +14,47 @@ y dos manuales, documentados en una matriz Excel y con reporte de defectos en Wo
 
 **Sitio bajo prueba:** https://buggy.justtestit.org/
 
-**Navegador:** Microsoft Edge (proyecto `edge` de `playwright.config.ts`, `channel: 'msedge'`).
+**Navegador:** Microsoft Edge para los tests automatizados (proyecto `edge` de `playwright.config.ts`,
+`channel: 'msedge'`). Las capturas de los casos manuales muestran Google Chrome.
 
-| Caso | HU / criterio | Tipo | Archivo | Resultado (14/11/2026, Edge) |
+| Caso | HU / criterio | Tipo | Archivo | Resultado (14/11/2026) |
 |---|---|---|---|---|
-| CP-01 | HU-1 C4 confirmación de clave distinta | Automatizado | `tests/examen-iii/cp01-confirmacion-clave.spec.ts` | ✅ Aprobado |
-| CP-02 | HU-1 C2 clave de 6 caracteres válida | Automatizado | `tests/examen-iii/cp02-registro-clave-seis-caracteres.spec.ts` | ❌ Falla — defecto **DEF-01** |
-| CP-03 | HU-3 C4 votar sin sesión | Automatizado | `tests/examen-iii/cp03-votacion-sin-login.spec.ts` | ✅ Aprobado |
-| CP-04 | HU-2 C2 nueva clave de 8 caracteres | Manual | `docs/III-serie/INSTRUCCIONES_CASOS_MANUALES.md` | ⏳ En ejecución: el sitio mostró "The profile has been saved successful"; falta verificar el inicio de sesión |
-| CP-05 | HU-2 C3 nombre vacío en perfil | Manual | `docs/III-serie/INSTRUCCIONES_CASOS_MANUALES.md` | ⏳ Pendiente |
+| CP-01 | HU-1 C4 confirmación de clave distinta | Automatizado (Edge) | `tests/examen-iii/cp01-confirmacion-clave.spec.ts` | ✅ OK |
+| CP-02 | HU-1 C2 clave de 6 caracteres válida | Automatizado (Edge) | `tests/examen-iii/cp02-registro-clave-seis-caracteres.spec.ts` | ❌ FALLO — **DEF-01** |
+| CP-03 | HU-3 C4 votar sin sesión | Automatizado (Edge) | `tests/examen-iii/cp03-votacion-sin-login.spec.ts` | ✅ OK |
+| CP-04 | HU-2 C2 nueva clave de 8 caracteres | Manual | `docs/III-serie/INSTRUCCIONES_CASOS_MANUALES.md` | ❌ FALLO — **DEF-02**: el perfil guardó la clave de 8 caracteres y permitió iniciar sesión con ella |
+| CP-05 | HU-2 C3 nombre vacío en perfil | Manual | `docs/III-serie/INSTRUCCIONES_CASOS_MANUALES.md` | ✅ OK: "First Name is required", Save deshabilitado y el nombre se conserva tras F5 |
 
-> **CP-02 falla a propósito mientras exista el defecto DEF-01:** el sitio rechaza una clave de
-> 6 caracteres que cumple HU-1 C2 ("Password not long enough"; el mínimo real es 8). El resultado
-> esperado no se modificó para hacer pasar la prueba. Por eso `npm run test:examen`,
-> `npm run test:edge` y `npm run test:regression` terminan con 1 prueba fallida.
+**Defectos confirmados**
 
-Las pruebas no votan ni publican comentarios. CP-01 y CP-02 crean como máximo un intento de
+- **DEF-01** (HU-1 C2, CP-02): el registro rechaza una clave de 6 caracteres con mayúscula y carácter especial; el sitio exige 8.
+- **DEF-02** (HU-2 C2, CP-04): el perfil acepta una clave nueva de 8 caracteres cuando el mínimo exigido es 10.
+
+> **CP-02 falla a propósito mientras exista el defecto DEF-01.** El resultado esperado no se
+> modificó para hacer pasar la prueba. Por eso `npm run test:examen`, `npm run test:edge` y
+> `npm run test:regression` terminan con 1 prueba fallida.
+
+Las pruebas no votan ni publican comentarios. CP-01 y CP-02 hacen como máximo un intento de
 registro con un login único (`qa_iii_<timestamp>`); no hay credenciales en el código.
+
+## Evidencias y documentación — III Serie
+
+| Recurso | Enlace |
+|---|---|
+| Carpeta de evidencias en Google Drive | https://drive.google.com/drive/folders/1QW9hmLVd4de65cvg9sBschWu9ZHPDJ8b?usp=sharing |
+| Matriz de casos (Excel, plantilla oficial) | [informe/III-serie/Matriz_Casos_Prueba_III_Serie.xlsx](informe/III-serie/Matriz_Casos_Prueba_III_Serie.xlsx) |
+| Reporte de defectos DEF-01 y DEF-02 (Word, plantilla oficial) | [informe/III-serie/Reporte_Defectos_III_Serie.docx](informe/III-serie/Reporte_Defectos_III_Serie.docx) |
+| Evidencias manuales CP-04 y CP-05 (Word) | [informe/III-serie/Evidencias_Manuales_CP04_CP05_III_Serie.docx](informe/III-serie/Evidencias_Manuales_CP04_CP05_III_Serie.docx) |
+| Capturas automatizadas (CP-01 a CP-03) | [evidencias/III-serie/automatizadas/](evidencias/III-serie/automatizadas/) |
+| Capturas manuales (CP-04 y CP-05) | [evidencias/III-serie/manuales/](evidencias/III-serie/manuales/) |
+| Reporte HTML de Playwright | [reportes/III-serie/playwright-report/index.html](reportes/III-serie/playwright-report/index.html) |
+
+En las copias publicadas de `CP-04-cambio-clave-ocho-caracteres.png` y del Word de evidencias
+manuales se cubrió un correo personal que aparecía en la ventana del gestor de contraseñas del
+navegador. El formulario y el mensaje del sistema no se alteraron.
+
+**Ejecutar los tests en Microsoft Edge:** `npm ci` y luego `npm run test:examen`
+(detalles en la sección siguiente).
 
 ### Requisitos e instalación
 
@@ -64,6 +88,9 @@ entregada está en `reportes/III-serie/playwright-report/`.
 |---|---|
 | Matriz de 5 casos (Excel) | `informe/III-serie/Matriz_Casos_Prueba_III_Serie.xlsx` |
 | Reporte de defectos (Word) | `informe/III-serie/Reporte_Defectos_III_Serie.docx` |
+| Evidencias manuales (Word) | `informe/III-serie/Evidencias_Manuales_CP04_CP05_III_Serie.docx` |
+| Plantillas oficiales del catedrático | `plantillas/` |
+| Google Drive | https://drive.google.com/drive/folders/1QW9hmLVd4de65cvg9sBschWu9ZHPDJ8b?usp=sharing |
 | Evidencias automatizadas | `evidencias/III-serie/automatizadas/CP-01…CP-03-*.png` |
 | Evidencias manuales | `evidencias/III-serie/manuales/CP-04…CP-05-*.png` |
 | Instrucciones casos manuales | `docs/III-serie/INSTRUCCIONES_CASOS_MANUALES.md` |

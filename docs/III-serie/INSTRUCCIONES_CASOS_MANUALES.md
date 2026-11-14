@@ -1,6 +1,11 @@
 # III Serie — Instrucciones para los casos manuales CP-04 y CP-05
 
-> Estos casos **no se han ejecutado**. Requieren que usted los ejecute a mano.
+> **Estado al 14/11/2026: ambos casos fueron ejecutados manualmente por el tester.**
+> CP-04 = FALLO (DEF-02) y CP-05 = OK. Las capturas están en `evidencias/III-serie/manuales/`
+> y en `informe/III-serie/Evidencias_Manuales_CP04_CP05_III_Serie.docx`.
+> El texto siguiente es la guía de ejecución usada como referencia.
+>
+> Estos casos requieren ejecución manual.
 > Al terminar, complete las columnas *Resultado obtenido* y *Estado prueba* en
 > `informe/III-serie/Matriz_Casos_Prueba_III_Serie.xlsx` con lo que **realmente** observó.
 
