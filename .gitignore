@@ -15,6 +15,10 @@ node_modules/
 *.key
 auth.json
 storageState*.json
+credentials*.json
+*secret*
+*.pfx
+*.p12
 
 # Resultados temporales y logs
 *.log
@@ -34,3 +38,8 @@ Desktop.ini
 # Videos y trazas pesadas se excluyen; capturas (.png) y documentos sí se permiten.
 /evidencias/**/*.webm
 /evidencias/**/*.zip
+# Capturas generadas automáticamente por los ejemplos (no son evidencias de entrega)
+/evidencias/ejemplos/
+
+# Archivos temporales de Office (bloqueo al tener abierto el Excel/Word)
+~$*
